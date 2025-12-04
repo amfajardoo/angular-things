@@ -1,0 +1,78 @@
+<section class="max-w-2xl mx-auto my-8 p-8 border border-gray-300 rounded-lg">
+  <h2 class="text-2xl font-bold mb-6">Complex Form (Signals)</h2>
+  
+  <form (submit)="onSubmit()">
+    <div class="mb-4 flex flex-col">
+      <label for="firstName" class="mb-2 font-bold">First Name @if (isFieldRequired(form.firstName())) { <span class="text-red-600">*</span> }</label>
+      <input id="firstName" type="text" [field]="form.firstName" class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      @if (hasErrors(form.firstName())) {
+        @for (error of form.firstName().errors(); track error.message) {
+          <span class="text-red-600 text-sm mt-1">{{ error.message }}</span>
+        }
+      }
+    </div>
+
+    <div class="mb-4 flex flex-col">
+      <label for="lastName" class="mb-2 font-bold">Last Name @if (isFieldRequired(form.lastName())) { <span class="text-red-600">*</span> }</label>
+      <input id="lastName" type="text" [field]="form.lastName" class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      @if (hasErrors(form.lastName())) {
+        @for (error of form.lastName().errors(); track error.message) {
+          <span class="text-red-600 text-sm mt-1">{{ error.message }}</span>
+        }
+      }
+    </div>
+
+    <div class="mb-4 flex flex-col">
+      <label for="age" class="mb-2 font-bold">Age @if (isFieldRequired(form.age())) { <span class="text-red-600">*</span> }</label>
+      <input id="age" type="number" [field]="form.age" class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      @if (hasErrors(form.age())) {
+        @for (error of form.age().errors(); track error.message) {
+          <span class="text-red-600 text-sm mt-1">{{ error.message }}</span>
+        }
+      }
+    </div>
+
+    <div class="mb-4 flex flex-col">
+      <label for="email" class="mb-2 font-bold">Email @if (isFieldRequired(form.email())) { <span class="text-red-600">*</span> }</label>
+      <input id="email" type="email" [field]="form.email" class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      @if (hasErrors(form.email())) {
+        @for (error of form.email().errors(); track error.message) {
+          <span class="text-red-600 text-sm mt-1">{{ error.message }}</span>
+        }
+      }
+    </div>
+
+    <fieldset class="border border-gray-200 p-4 mb-4 rounded">
+      <legend class="px-2 font-bold">Address</legend>
+      
+      <div class="mb-4 flex flex-col">
+        <label for="street" class="mb-2 font-bold">Street</label>
+        <input id="street" type="text" [field]="form.address.street" class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <div class="mb-4 flex flex-col">
+        <label for="city" class="mb-2 font-bold">City</label>
+        <input id="city" type="text" [field]="form.address.city" class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <div class="mb-4 flex flex-col">
+        <label for="zip" class="mb-2 font-bold">Zip Code @if (isFieldRequired(form.address.zip())) { <span class="text-red-600">*</span> }</label>
+        <input id="zip" type="text" [field]="form.address.zip" class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        @if (hasErrors(form.address.zip())) {
+          @for (error of form.address.zip().errors(); track error.message) {
+            <span class="text-red-600 text-sm mt-1">{{ error.message }}</span>
+          }
+        }
+      </div>
+    </fieldset>
+
+    <button type="submit" [disabled]="!form().valid()" class="px-6 py-3 bg-blue-600 text-white rounded cursor-pointer disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors">Submit</button>
+  </form>
+
+  @if (form().value()) {
+    <div class="mt-8 bg-gray-100 p-4 rounded">
+      <h3 class="text-lg font-bold mb-2">Form Data:</h3>
+      <pre class="text-sm">{{ form().value() | json }}</pre>
+    </div>
+  }
+</section>
