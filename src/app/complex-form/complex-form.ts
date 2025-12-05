@@ -1,27 +1,27 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { JsonPipe } from '@angular/common';
-import { INITIAL_FORM_DATA, FormData, FORM_DATA_SCHEMA } from './form-data';
-import { Field, FieldState, form, REQUIRED } from '@angular/forms/signals';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { Field, type FieldState, form } from '@angular/forms/signals';
+import { FormField } from './components/form-field/form-field';
+import { FORM_DATA_SCHEMA, type FormData, INITIAL_FORM_DATA } from './form-data';
+import { UserAddress } from './user-address/user-address';
 
 @Component({
   selector: 'app-complex-form',
   templateUrl: './complex-form.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Field, JsonPipe],
+  imports: [Field, JsonPipe, UserAddress, FormField],
 })
 export default class ComplexForm {
-
   readonly formModel = signal<FormData>(INITIAL_FORM_DATA);
   readonly form = form(this.formModel, FORM_DATA_SCHEMA);
 
-  onSubmit() {
-  }
-
-  isFieldRequired(field: FieldState<unknown, string>) {
-    return field.hasMetadata(REQUIRED);
-  }
+  onSubmit() {}
 
   hasErrors(field: FieldState<unknown, string>) {
     return field.touched() && field.errors().length > 0;
+  }
+
+  reset() {
+    this.form().reset(INITIAL_FORM_DATA);
   }
 }
