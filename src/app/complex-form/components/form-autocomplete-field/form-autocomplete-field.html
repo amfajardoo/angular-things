@@ -1,4 +1,4 @@
-<div class="mb-4 flex flex-col">
+<div class="mb-4 flex flex-col relative">
   <label [for]="'field-' + label().toLowerCase().replace(' ', '-')" class="mb-2 font-bold"
     >{{ label() }}
     @if (required()) {
@@ -21,7 +21,14 @@
     }
   }
 
-  <!-- <div class="mt-8 bg-gray-100 p-4 rounded">
+  @if (pending()) {
+    <div class="p-3 text-gray-500 text-center">
+      <span class="inline-block animate-spin mr-2">⏳</span>
+      Buscando direcciones...
+    </div>
+  }
+
+  <div class="mt-8 bg-gray-100 p-4 rounded">
     <div class="flex align-baseline justify-baseline gap-1">
       <h3 class="text-lg font-bold">required:</h3>
       <pre class="text-lg">{{ required() }}</pre>
@@ -34,5 +41,9 @@
       <h3 class="text-lg font-bold">invalid:</h3>
       <pre class="text-lg">{{ invalid() }}</pre>
     </div>
-  </div> -->
+    <div class="flex align-baseline justify-baseline gap-1">
+      <h3 class="text-lg font-bold">pending:</h3>
+      <pre class="text-lg">{{ pending() }}</pre>
+    </div>
+  </div>
 </div>

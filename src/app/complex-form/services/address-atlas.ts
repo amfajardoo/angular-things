@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { delay, firstValueFrom, type Observable, of } from 'rxjs';
-import { type Address, FAKE_ADDRESSES } from './form-data';
+import { type Address, FAKE_ADDRESSES } from '../form-data';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AddressAtlas {
-  TWO_SECONDS = 2000;
+  TWO_SECONDS = 20000;
 
   /**
    * 🔎 Simula la búsqueda de direcciones por un término, devolviendo un Observable.
@@ -23,7 +23,7 @@ export class AddressAtlas {
         address.street.toLowerCase().includes(term) ||
         address.city.toLowerCase().includes(term) ||
         address.state.toLowerCase().includes(term) ||
-        address.zipCode.includes(term)
+        address.zipCode.includes(term),
     );
 
     // Simula el tiempo de respuesta de la red
@@ -45,6 +45,7 @@ export class AddressAtlas {
    * @returns Una Promise<Address[]>.
    */
   public searchAddressesPromise(query: string): Promise<Address[]> {
+    console.log('AddressAtlas: searchAddressesPromise called with query:', query);
     return firstValueFrom(this.searchAddressesObservable(query));
   }
 
